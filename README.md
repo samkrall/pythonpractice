@@ -1,2 +1,2 @@
 # pythonpractice
-practicing python coding
+practicing python coding, projects to demonstrate command of basic python functionality
