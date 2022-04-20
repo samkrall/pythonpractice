@@ -1,0 +1,161 @@
+#Python practice problems, strings, lists, std dev calc, conditionals, dictionaries
+
+#1)Tyler locket had 69 receptions, 82 targets, 1057 yards and 8 recieving TDs in 2019, print his catchrate/points
+"""
+targets = 82
+receptions = 69
+yards = 1057
+tds = 8
+
+catch_rate = receptions/targets*100
+print('Tyler locket had a catch rate of '+ str(catch_rate))
+print('Tyler Locket scored ' + str(((receptions*1) + (yards*.1) + (tds *6))) + ' points las season')
+"""
+
+#2)input a list, find the average using builtin functions len and sum and print out the average
+
+"""
+mt_yards = [123, 89, 54, 95, 182, 89, 131, 112, 152, 114, 101, 48, 134, 128, 136, 37]
+avg = sum(mt_yards)/len(mt_yards)
+print(avg)
+"""
+
+#3)manually calculate the standard deviation for the list above (without using built in functions).
+'''
+mt_yards = [123, 89, 54, 95, 182, 89, 131, 112, 152, 114, 101, 48, 134, 128, 136, 37]
+avg = sum(mt_yards)/len(mt_yards)
+total = 0
+#iterate through the list
+for i in mt_yards:
+    sqdiff = (i-avg)**2
+    total += sqdiff
+#calc variance
+variance = (total/len(mt_yards))
+stddev = variance**(1/2)
+print(stddev)
+'''
+
+#4)Using if statements find out if Rashaad Penny is in the interquartile range for rushing yards
+'''
+rpyards = 370
+lowper = 20
+highper = 465
+
+if rpyards > highper:
+    print('Penny is over the 75th percentile')
+elif rpyards > lowper:
+    print('Penny is in the interquartile range')
+else:
+    print('Penny is in the bottom 25 percent')
+'''
+
+#5)Create a list of dictionaries and write a program that calculates ypc for the top 3 runningbacks.
+'''
+players = [
+    {'name': 'AP',
+     'rushing_yards': 1500,
+     'rushes': 300,
+     'tds': 14},
+    {'name': 'LeSean McCoy',
+     'rushing_yards': 1200,
+     'rushes': 280,
+     'tds': 13},
+    {'name': 'Derek Henry',
+     'rushing_yards': 1600,
+     'rushes': 310,
+     'tds': 15}
+]
+
+for rb in players:
+    name = rb['name']
+    ypc = rb['rushing_yards']/rb['rushes']
+    print(name, 'has', ypc, 'yards per carry')
+'''
+
+#6 For each player write a program that calculates max rushing yards
+'''
+players = [
+    {'name': 'AP',
+     'rushing_yards': 1500,
+     'rushes': 300,
+     'tds': 14},
+    {'name': 'LeSean McCoy',
+     'rushing_yards': 1200,
+     'rushes': 280,
+     'tds': 13},
+    {'name': 'Derek Henry',
+     'rushing_yards': 1600,
+     'rushes': 310,
+     'tds': 15}
+]
+#iterate over the list of dictionaries, create conditional where if yards > than the max save yards and player
+max_yards = 0
+player = ''
+for rb in players:
+    if rb['rushing_yards'] > max_yards:
+        max_yards = rb['rushing_yards']
+        player = rb['name']
+print(player, 'has the max yards,', str(max_yards))
+'''
+#7 sort the list, grab the first and last element of the list
+'''
+my_list = [10, 12, 12, 6, 7, 8, 12, 15, 17]
+my_list.sort()
+print(my_list[0], my_list[-1])
+'''
+#8 Calculate passer rating
+'''
+qb_stat = {
+    'completion': 20,
+    'attempt' : 25,
+    'yards': 315,
+    'td': 4,
+    'interception': 1
+}
+def passer_rating(x):
+    rating = 100*(((x['completion']/x['attempt'])-0.3)*5)+(((x['yards']/x['attempt'])-3)*0.25)+(((x['td']/x['attempt'])*20)+2.375)-(((x['interception']/x['attempt'])*25))/6
+    print(rating)
+passer_rating(qb_stat)
+'''
+
+#9 Use buil in max/min functions to find the min/max and range of a list
+'''
+list_obj = [1, 2, 3, 56, 12, 23, 34, 12, 89, 90, 345, 67, 56, 34]
+
+print(max(list_obj))
+print(min(list_obj))
+print(max(list_obj)-min(list_obj))
+'''
+
+#10 Using a dictionary of fantasy_weights, find the fantasy points scored for Lamar Jackson with the following stats saved to the following dictionary:
+'''
+lamar_jackson_stats = {
+  'passing_yds': 3127,
+  'passing_tds': 36,
+  'passing_int': 6,
+  'rushing_yds': 1206,
+  'rushing_tds': 7,
+  'fumbles': 8,
+  'receiving_yds': 0,
+  'receptions': 0,
+  'receiving_td': 0
+}
+
+fantasy_weights = {
+'passing_yds': 0.04,
+'passing_tds': 4,
+'passing_int': -2,
+'rushing_yds': 0.10,
+'rushing_tds': 6,
+'fumbles': -2,
+'receiving_yds': 0.10,
+'receptions': 1, # adjust for half PPR and standard
+'receiving_td': 6
+}
+
+final = 0
+for key in lamar_jackson_stats:
+    fp = (fantasy_weights[key])*lamar_jackson_stats[key]
+    final += fp
+print(final)
+'''
