@@ -159,3 +159,140 @@ for key in lamar_jackson_stats:
     final += fp
 print(final)
 '''
+
+#Practice, Funcions, Loops and Conditionals
+
+#1 Write a function that calculates std dev from a list of numbers, check results with numpy
+'''
+def std_dev(x):
+    average = sum(x)/len(x)
+    total = 0
+    #iterate through list
+    for i in x:
+       squared_diff = (i - average)**2
+       total += squared_diff
+    variance = total/len(x)
+    final = variance**0.5
+    print(final)
+
+list = [1, 2, 3, 4, 5]
+std_dev(list)
+
+#check function with numpy
+import numpy
+
+print (numpy.std(list))
+'''
+
+#2 write a function that calculates a result based on a dictionary
+'''
+Lamar = {
+  'passing_yds': 3400,
+  'passing_tds': 24,
+  'passing_int': 6,
+  'rushing_yds': 324,
+  'rushing_tds': 3,
+  'fumbles': 2,
+  'receiving_yds': 12,
+  'receptions': 1,
+  'receiving_td': 0
+}
+fantasy_weights = {
+'passing_yds': 0.04,
+'passing_tds': 4,
+'passing_int': -2,
+'rushing_yds': 0.10,
+'rushing_tds': 6,
+'fumbles': -2,
+'receiving_yds': 0.10,
+'receptions': 1, # adjust for half PPR and standard
+'receiving_td': 6
+}
+
+#pass 2 dictionaries into function, iterate over them and multiply, adding the result to a total, print the total
+def calc_points(x, y):
+    total = 0
+    for key in x:
+        total += ((x.get(key))*(y.get(key)))
+    print(total)
+
+
+
+calc_points(Lamar, fantasy_weights)
+'''
+
+#3 Write function regarding rushing stats, add YPC and TDPC to dictionary
+'''
+AP =     {
+        'rushing_yards': 1000,
+        'rushing_touchdowns': 12,
+        'rushing_attempts': 240
+    }
+
+def rushing_stats(x):
+    yards = x['rushing_yards']
+    tds = x['rushing_touchdowns']
+    attempts = x['rushing_attempts']
+    x['yards_per_carry'] = yards/attempts
+    x['touchdowns_per_carry'] = tds/attempts
+    print(x)
+
+rushing_stats(AP)
+'''
+#4 interate over a dictionary to find the last player at each position picked in the draft, put in dictionary
+'''
+players = [
+            {
+                'pos': 'RB',
+                'pick': 90
+            },
+            {
+                'pos': 'RB',
+                'pick': 91
+            },
+            {
+                'pos': 'WR',
+                'pick': 92
+            },
+            {
+                'pos': 'TE',
+                'pick': 93
+            },
+            {
+                'pos': 'RB',
+                'pick': 94
+            },
+            {
+                'pos': 'RB',
+                'pick': 95
+            },
+            {
+                'pos': 'WR',
+                'pick': 96
+            },
+            {
+                'pos': 'RB',
+                'pick': 97
+            },
+            {
+                'pos': 'TE',
+                'pick': 98
+            },
+            {
+                'pos': 'RB',
+                'pick': 99
+            },
+            {
+                'pos': 'QB',
+                'pick': 100
+            },
+        ]
+
+replacement_players = {}
+
+for player in players:
+    position = player['pos']
+    replacement_players[position] = player['pick']
+
+print(replacement_players)
+'''
