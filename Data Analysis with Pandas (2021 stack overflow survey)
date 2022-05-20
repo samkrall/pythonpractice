@@ -1,0 +1,133 @@
+'''
+README:
+
+Hello everyone. I want to become a data or computer scientist. I already have a decent career and I want to figure out
+if its worth my time/money and the best way to do it. I am using 2021 survey data from stack overflow to do so. Here
+are the questions I am asking:
+
+-Lets look at the 5 'biggest' coding countries and see how they compare
+-What are salaries for devs compared with age in my country (America)
+so I can see what I can expect to earn if i switch careers?
+-Since coding can be done anywhere, how does US compare vs OUS salary (basically whats my chance of being outsourced)?
+-What's the best language to learn?
+
+'''
+
+#importing pandas/numpy/plt
+
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+
+#reading the data and schema into dataframs in 
+
+df = pd.read_csv('C:/Users/samdk/Desktop/data science/data/stack-overflow-developer-survey-2021/survey_results_public.csv')
+df_schema = pd.read_csv('C:/Users/samdk/Desktop/data science/data/stack-overflow-developer-survey-2021/survey_results_schema.csv')
+pd.set_option('display.max_columns', None)
+
+#initial exploration
+df.columns
+df.shape
+#Relavant columns: ConvertedCompYearly, Age, LanguageHaveWorkedWith, Country, US_State, YearsCode, YearsCodePro
+
+#were grabbing value counts to see what countries we want to examine... (Spoiler its US, India, Germany, UK, Canada)
+df['Country'].value_counts()
+
+#Lets look at the 5 'biggest' coding countries and see how they compare? US/India/Germany/UK/Canada
+
+#Create Group by country and explore the top 5
+country_group = df.groupby(['Country'])
+print(country_group['ConvertedCompYearly'].agg(['median', 'mean']).loc['United States of America'])
+print()
+print(country_group['ConvertedCompYearly'].agg(['median', 'mean']).loc['India'])
+print()
+print(country_group['ConvertedCompYearly'].agg(['median', 'mean']).loc['Germany'])
+print()
+print(country_group['ConvertedCompYearly'].agg(['median', 'mean']).loc['United Kingdom of Great Britain and Northern Ireland'])
+print()
+print(country_group['ConvertedCompYearly'].agg(['median', 'mean']).loc['Canada'])
+
+#Since coding can be done anywhere, how does US compare vs OUS salary (basically whats my chance of being outsourced)?
+#We can see that salaries differ quite alot across the top 5 countries! North America is #1, 
+#followed by the west followed by India. Lets get a little mor granularity.
+
+#I want "working age" deveLopers, so lets explore 'age' column, which is a categorical
+df['Age'].unique()
+
+#dropping under 18s, over 65s, prefer not to says
+df.drop(df[df['Age'] == 'Under 18 years old'].index, inplace=True)
+df.drop(df[df['Age'] == '65 years or older'].index, inplace=True)
+df.drop(df[df['Age'] == 'Prefer not to say'].index, inplace=True)
+df.shape
+
+#filter for America/India/Germany/UK/Canada
+country_group = df.groupby(['Country'])
+df_usa = country_group.get_group('United States of America')
+df_india = country_group.get_group('India')
+df_germany = country_group.get_group('Germany')
+df_uk = country_group.get_group('United Kingdom of Great Britain and Northern Ireland')
+df_canada = country_group.get_group('Canada')
+
+#this gives a little more granularity, displaying median by age by country
+medians_usa = df_usa.groupby(['Age']).ConvertedCompYearly.median()
+medians_india = df_india.groupby(['Age']).ConvertedCompYearly.median()
+medians_germany = df_germany.groupby(['Age']).ConvertedCompYearly.median()
+medians_uk = df_uk.groupby(['Age']).ConvertedCompYearly.median()
+medians_canada = df_canada.groupby(['Age']).ConvertedCompYearly.median()
+
+print(medians_usa)
+print(medians_india)
+print(medians_germany)
+print(medians_uk)
+print(medians_canada)
+
+#Starting coders in USA make more than ANYONE in India and make comparable amounts to canadians, germans and britist...if you want to make $$$ move to America!
+
+#let start looking at languages, we want to understand what languages to learn...
+#Python, HTML/CSS, JavaScript
+print(df['LanguageHaveWorkedWith'].str.contains('Python').sum())
+print(df['LanguageHaveWorkedWith'].str.contains('JavaScript').sum())
+print(df['LanguageHaveWorkedWith'].str.contains('HTML/CSS').sum())
+
+# a little cleaning, remoing NAs before i use a lambda function to help subset data
+df.dropna(subset=['LanguageHaveWorkedWith'], inplace=True)
+
+df['python']= df['LanguageHaveWorkedWith'].apply(lambda x: 'Python' if 'Python' in x else np.nan)
+df['javaScript']= df['LanguageHaveWorkedWith'].apply(lambda x: 'JavaScript' if 'JavaScript' in x else np.nan)
+df['HTML/CSS']= df['LanguageHaveWorkedWith'].apply(lambda x: 'HTML/CSS' if 'HTML/CSS' in x else np.nan)
+
+#regrab country group, were only looking at USA for languages
+country_group = df.groupby(['Country'])
+df_usa = country_group.get_group('United States of America')
+
+#grabbing relevant columns
+df_usa = df_usa[['python', 'javaScript', 'HTML/CSS', 'ConvertedCompYearly', 'Age']]
+
+#subsetting the dataframe
+df_usa_python = df_usa.copy()
+df_usa_javascript = df_usa.copy()
+df_usa_htmlcss = df_usa.copy()
+
+#pulling only people who know python/javascript/html and css (remember to check shapes!)
+df_usa_python.dropna(subset=['python'], inplace=True)
+df_usa_python
+df_usa_javascript.dropna(subset=['javaScript'], inplace=True)
+df_usa_javascript
+df_usa_htmlcss.dropna(subset=['HTML/CSS'], inplace=True)
+df_usa_htmlcss
+
+#create table of medians grouped by age/code knowledge
+medians_usa_python = df_usa_python.groupby(['Age']).ConvertedCompYearly.median()
+medians_usa_javascript = df_usa_javascript.groupby(['Age']).ConvertedCompYearly.median()
+medians_usa_htmlcss = df_usa_htmlcss.groupby(['Age']).ConvertedCompYearly.median()
+
+#print
+print(medians_usa)
+print()
+print(medians_usa_python)
+print()
+print(medians_usa_javascript)
+print()
+print(medians_usa_htmlcss)
+
+#python is the language to learn, highest medians across the board.
