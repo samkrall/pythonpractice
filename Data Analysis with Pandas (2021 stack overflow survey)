@@ -167,3 +167,37 @@ plt.xticks(x_indexes, labels, rotation=60)
 #in the US, python devs have a slight advantage over others.
 
 #next we'll work on visualizing medians by country...
+#reseting index on the us medians and renaming the comp column
+countries_df = medians_usa.reset_index()
+countries_df.rename(columns = {'ConvertedCompYearly':'United States'},inplace=True)
+
+#wrangling other median data and adding to the country df
+india_medians = medians_india.reset_index()
+countries_df['India'] = india_medians['ConvertedCompYearly']
+germany_medians = medians_germany.reset_index()
+countries_df['Germany'] = germany_medians['ConvertedCompYearly']
+uk_medians = medians_uk.reset_index()
+countries_df['UK'] = uk_medians['ConvertedCompYearly']
+canada_medians = medians_canada.reset_index()
+countries_df['Canada'] = canada_medians['ConvertedCompYearly']
+
+#creating a bar chart of median salaries by age for top 5 countries
+x_indexes = np.arange(len(countries_df['index']))
+width = 0.15
+labels = countries_df['Age']
+plt.bar(x_indexes-(2*width), countries_df['India'], width=width, label='India')
+plt.bar(x_indexes-width, countries_df['Germany'], width=width, label = 'Germany')
+plt.bar(x_indexes, countries_df['UK'], width=width, label = 'UK')
+plt.bar(x_indexes+width, countries_df['Canada'], width=width, label = 'Canada')
+plt.bar(x_indexes+(2*width), countries_df['United States'], width=width, label = 'US')
+plt.title('Median Salary by Age')
+plt.legend()
+plt.xticks(x_indexes, labels, rotation=60)
+
+
+'''
+That all I got. This is my first time working with data after ~8 weeks of learning. Probably no one else will ever read this but it feels
+REALLY REALLY good to have taught myself this in the last few weeks. Also I coded all of this in Jupyter notebooks to start and I haven't 
+learned how to copy that directly to GITHUB, this code might be a little buggy, but it worked in JUPYTER!
+'''
+
