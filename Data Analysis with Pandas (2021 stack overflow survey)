@@ -131,3 +131,39 @@ print()
 print(medians_usa_htmlcss)
 
 #python is the language to learn, highest medians across the board.
+
+#Lets do some visualizations...
+
+newdf = medians_usa_python.reset_index()
+
+#showing a bar chart of US medians for python devs
+plt.bar(newdf['index'], newdf['ConvertedCompYearly'])
+
+#renaming converted comp to reflect 
+newdf.rename(columns={'ConvertedCompYearly':'PythonMedianSalary'}, inplace=True)
+
+#doing the same with python, CSS, and overall
+javascript_medians = medians_usa_javascript.reset_index()
+newdf['JavaScriptMedianSalary'] = javascript_medians['ConvertedCompYearly']
+htmlcss_medians = medians_usa_htmlcss.reset_index()
+newdf['htmlcssmediansalary'] = htmlcss_medians['ConvertedCompYearly']
+overall_medians = medians_usa.reset_index()
+newdf['US Median']=overall_medians['ConvertedCompYearly']
+
+print(newdf)
+
+#creating bar chart
+x_indexes = np.arange(len(newdf['index']))
+width = 0.2
+labels = newdf['Age']
+plt.bar(x_indexes-(2*width), newdf['US Median'], width=width, label='All Devs')
+plt.bar(x_indexes-width, newdf['PythonMedianSalary'], width=width, label = 'Python Devs')
+plt.bar(x_indexes, newdf['JavaScriptMedianSalary'], width=width, label = 'JavaScript Devs')
+plt.bar(x_indexes+width, newdf['htmlcssmediansalary'], width=width, label = 'HTML/CSS Devs')
+plt.title('Median Salary in America by Age')
+plt.legend(loc='lower right')
+plt.xticks(x_indexes, labels, rotation=60)
+
+#in the US, python devs have a slight advantage over others.
+
+#next we'll work on visualizing medians by country...
