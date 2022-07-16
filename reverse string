@@ -1,0 +1,9 @@
+#just a program to reverse a string w/o using "string[::-1]"
+
+def reverse(x):
+    number = 0
+    revstring = ''
+    for letter in x:
+        number += 1
+        revstring = revstring+(x[-number])
+    return print(revstring)
