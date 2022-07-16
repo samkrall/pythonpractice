@@ -1,0 +1,4 @@
+#create custom function to replace the first letter of a string with j and uppercase the rest
+
+def stringy(x):
+   return(print('j'+x[1:].upper()))
