@@ -1,0 +1,13 @@
+#create madlibs
+
+plural_nour = input("Plural noun: ")
+adj1 = input("Adjective: ")
+name = input("Name: ")
+adj2 = input("Adjective: ")
+verb = input("Verb: ")
+
+madlibs = f"The {plural_nour} are going to be {adj1} this year. {name} is the new head \
+coach, rumor is he's brining {adj2} playcalling and wants to {verb} all \
+other teams in the division."
+
+print(madlibs)
