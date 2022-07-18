@@ -1,10 +1,19 @@
+#import random
+import random
+
+#create function
 def guess(x):
+    #creates random number and sets guess to 0
     random_num = random.randint(1, x)
     guess = 0
+    #while loop, continue generating guesses until you get the correct answer, if/elif tell you to go higher/lower
     while guess != random_num:
         guess = int(input(f'What\'s your guess (between 1 and {x}? '))
         if guess < random_num:
             print('guess higher')
         elif guess > random_num:
             print('guess lower')
+    #when guess = random_num, print confirmation
     print('Great guess!')
+
+#guess(x) where x is your upper limit
