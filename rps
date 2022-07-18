@@ -1,0 +1,25 @@
+#rock paper scissors
+
+#import random
+import random
+
+#create function, ask for input from the user and lower all letters, give options for the computer and randomize computers choice
+def play():
+    player = input('Rock, Paper, or Scissors? ').lower()
+    rps = ['rock', 'paper', 'scissors']
+    computer = random.choice(rps)
+
+# 3 options, tie, lose and win
+    if player == computer:
+        return print('tie')
+
+    if win(player, computer):
+        return print('you win')
+
+    return print('you lose')
+
+#create function re: winning, rock>scissors, scissors>paper, paper>rock
+def win(player, opponent):
+    if(player == 'rock' and opponent == 'scissors')or(player == 'scissors' and opponent =='paper')or (player == 'paper'and opponent == 'rock'):
+        return True
+
