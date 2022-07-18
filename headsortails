@@ -1,0 +1,18 @@
+# heads or tails
+import random
+
+#get input and create lower
+guess = input('heads or tails: ').lower()
+random_num = random.randint(1, 2)
+
+#binary, 0/1 to heads/tails
+if random_num == 1:
+    side = 'heads'
+else:
+    side = 'tails'
+
+#compare guess and side
+if guess == side:
+    print('Good guess!')
+else:
+    print('Better luck next time.')
