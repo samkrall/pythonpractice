@@ -1,0 +1,31 @@
+#steps to reduce number to 0
+
+#while number >0
+#if number%2, divide by 2
+#else subtract 1
+
+'''
+number = 10
+counter = 0
+
+while number > 0:
+    if number % 2 == 0:
+        number = number/2
+    else:
+        number = number - 1
+    counter = counter+1
+
+print(counter)
+
+'''
+def counter(x):
+    count = 0
+    while x > 0:
+        if x %2 == 0:
+            x = x/2
+        else:
+            x = x-1
+        count = count+1
+    return((count))
+
+print(counter(10))
