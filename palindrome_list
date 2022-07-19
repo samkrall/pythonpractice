@@ -1,0 +1,22 @@
+#given a list, check to see if its a palindrome
+
+list = [1, 2, 3, 2, 1]
+
+#compare list[0] with list[-1] and list[1] with list[-2]
+#if any list[i] does not match list[(-(i+1))] return false
+
+def palindrome(x):
+
+    total = 0
+    for i in range(int(len(x)/2)):
+        if x[i] == x[(-(i + 1))]:
+            total += 1
+        else:
+            total +=0
+
+    if total == int(len(x)/2):
+        print('True')
+    else:
+        print('False')
+
+palindrome(list)
