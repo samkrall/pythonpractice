@@ -1,0 +1,10 @@
+def richcustomer(x):
+    richest = 0
+    for customer in x:
+        wealth = 0
+        for account in customer:
+            wealth += account
+        if wealth > richest:
+            richest = wealth
+
+    return(richest)
