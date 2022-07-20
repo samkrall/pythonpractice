@@ -1,0 +1,22 @@
+'''
+what's the smallest positive integer that doesn't exist in a list?
+
+plan:
+1- iterate through a list to check if a value exists in it
+2- if the value exists, add 1 to it
+3- iterate through the list again
+'''
+
+list = [1, 3, 6, 4, 2]
+
+def checklist(X):             #define function
+    n=1                       #set n = 1
+    restart = True            #set restart string to true for the while loop
+    while restart:            #instantiate while loop to continuously iterate thru list (until restart=false)
+        if n in list:         #if/else statement, add 1 to n if n in list, or stopthe while loop
+            n+=1
+        else:
+            restart = False
+    return(n)                 #return n value
+
+print(myfunc(list))
