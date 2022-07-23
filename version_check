@@ -1,0 +1,38 @@
+'''
+given two strings x and y in the format 1.2.3 (where versions have <10 but not necessarily the same
+amount of sections) if s is a newer version that t, return (-1), if s is the same version return 0, if s
+is older, return 1.
+
+
+'''
+
+x =('1.1.1.4')
+y = ('1.1.2.1')
+
+def newer_version(s, t):
+    slist = s.split('.')
+    tlist = t.split('.')
+    final = 0
+    if len(slist)>=len(tlist):
+        for i in range(len(tlist)):
+            if slist[i]>tlist[i]:
+                final-=1
+                break
+            if slist[i]<tlist[i]:
+                final+=1
+                break
+            else:
+                continue
+    else:
+        for i in range(len(slist)):
+            if slist[i]>tlist[i]:
+                final-=1
+                break
+            if slist[i]<tlist[i]:
+                final+=1
+                break
+            else:
+                continue
+    return(final)
+
+print(newer_version(x, y))
