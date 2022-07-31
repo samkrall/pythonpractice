@@ -1,0 +1,31 @@
+'''
+Given a sorted array of distinct integers and a target value, return the index if the target is found.
+If not, return the index where it would be if it were inserted in order.
+You must write an algorithm with O(log n) runtime complexity.
+
+
+1 - find out if the list item halfway through is less than, equal to or greater than target
+    a) if equal to, return as output
+    b) if greater than, repeat halving on bottom half
+    c) if less than, repeat halving on top half
+
+'''
+nums = [1,3,5,6,7]
+target = 1
+
+def binary_search(sequence, item):                                  #define functions, input is list, value
+    begin_index = 0                                                 #define start and end of the index
+    end_index = (len(sequence)-1)
+    while begin_index <= end_index:                                 #while loop, 'less than or equal' checksto be sure that the value isn't in the seuqnce when the seq lengh is 1
+        midpoint = begin_index+(end_index-begin_index)//2           #find midpoint and grab the element at the midpoint
+        midpoint_value = sequence[midpoint]
+        if midpoint_value == item:                                  #loop through, if midpoint = value, return midpoint, otherwise cut list down and repeat
+            return midpoint
+        elif item < midpoint_value:
+            end_index = midpoint-1
+        else:
+            begin_index = midpoint+1
+    return('item not in sequence')                                  #return item not in sequence if item is not in sequence
+
+
+print(binary_search(nums, target))
